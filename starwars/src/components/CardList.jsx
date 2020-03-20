@@ -2,13 +2,13 @@ import React from 'react'
 import { useState, useEffect } from 'react'
 
 import axios from 'axios'
-import { Container, Row, Col, Button, ButtonGroup } from 'reactstrap'
+import { Container, Row, Col, Button, ButtonGroup, InputGroup, InputGroupAddon, Input } from 'reactstrap'
 
 import CharCard from './CharCard'
 
 // move to a global config
 // const cols = { xs: 1, sm: 2, md: 3 }
-
+import './cardlist.css';
 
 
 const data = [
@@ -75,12 +75,18 @@ const data = [
 
 
 
+
 function CardList() {
 
   const [chars, setChars] = useState([])
   const [page, setPage] = useState(1)
   const [query, setQuery] = useState('')
+  const [count, setCount] = useState(0)
 
+  function getChars(page) {
+  
+  }
+  
 
   useEffect(() => {
 
@@ -88,22 +94,25 @@ function CardList() {
     .get(`https://swapi.co/api/people/?page=${page}`)
     .then(resp => {
       setChars(resp.data.results)
+      setCount(resp.data.count)
     })
     .catch(err => {
       console.log("There was an error", err)
     });
     
-  }, []);
+  }, [page]);
 
   return (
     <section className="char-list">
-      <nav>
-        <ButtonGroup>
-          <Button>Previous</Button>
-          <Button>Next</Button>
-        </ButtonGroup>
-      </nav>
       <Container className="themed-container" fluid={true}>
+        <InputGroup>
+          <Input />
+          <InputGroupAddon addonType="append"><Button>Search</Button></InputGroupAddon>
+        </InputGroup>
+        <ButtonGroup>
+          <Button onClick={() => (page > 1 ? setPage(Number(page - 1)) : null ) }>Previous</Button>
+          <Button onClick={() => (page < (count / 10) ? setPage(Number(page + 1)) : null ) }>Next</Button>
+        </ButtonGroup>
         <Row xs='1' sm='2' md='3'>
           {chars.map((item, idx) => {
             return (
