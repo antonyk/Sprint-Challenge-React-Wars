@@ -90,9 +90,20 @@ function CardList() {
 
   useEffect(() => {
 
+  }, [])
+
+  useEffect(() => {
+
     axios
     .get(`https://swapi.co/api/people/?page=${page}`)
     .then(resp => {
+      // if (query != '') {
+      //   setChars(resp.data.results.filter(item => {return item.name.includes(query)}))
+      // }
+      // else {
+      //   setChars(resp.data.results)
+      //   setCount(resp.data.count)
+      // }
       setChars(resp.data.results)
       setCount(resp.data.count)
     })
@@ -100,14 +111,14 @@ function CardList() {
       console.log("There was an error", err)
     });
     
-  }, [page]);
+  }, [page, query]);
 
   return (
     <section className="char-list">
       <Container className="themed-container" fluid={true}>
         <InputGroup>
-          <Input />
-          <InputGroupAddon addonType="append"><Button>Search</Button></InputGroupAddon>
+          <Input name="search" />
+          <InputGroupAddon addonType="append"><Button onClick={() => setQuery(document.getElementsByName("search")[0].value)}>Search</Button></InputGroupAddon>
         </InputGroup>
         <ButtonGroup>
           <Button onClick={() => (page > 1 ? setPage(Number(page - 1)) : null ) }>Previous</Button>
