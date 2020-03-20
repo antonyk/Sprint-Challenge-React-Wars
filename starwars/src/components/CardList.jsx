@@ -90,12 +90,8 @@ function CardList() {
 
   useEffect(() => {
 
-  }, [])
-
-  useEffect(() => {
-
     axios
-    .get(`https://swapi.co/api/people/?page=${page}`)
+    .get(`https://swapi.co/api/people/?search=${query}&page=${page}`)
     .then(resp => {
       // if (query != '') {
       //   setChars(resp.data.results.filter(item => {return item.name.includes(query)}))
