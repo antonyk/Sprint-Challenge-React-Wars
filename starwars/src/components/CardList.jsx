@@ -136,7 +136,7 @@ function CardList() {
           <Button onClick={() => (page > 1 ? setPage(Number(page - 1)) : null ) }>Previous</Button>
           <Button onClick={() => (page < (count / 10) ? setPage(Number(page + 1)) : null ) }>Next</Button>
         </ButtonGroup>
-        <Row xs='1' sm='2' md='3'>
+        <Row xs='1' sm='1' md='2' lg='2' xl='5'>
           {chars.map((item, idx) => {
             return (
               <Col><CharCard key={Number(page*10+idx).toString()} char={item} /></Col>

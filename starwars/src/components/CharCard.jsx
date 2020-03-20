@@ -16,11 +16,11 @@ function CharCard({char}) {
       <CardHeader tag="h3">{char.name} <Emoji name='ufo' /></CardHeader>
       <CardBody>
         About this person
-        Gender: <Badge color="info">{char.gender}</Badge>
-        Height: <Badge color="info">{char.height}cm</Badge>
-        Weight: <Badge color="info">{char.weight}kg</Badge>
       </CardBody>
       <CardFooter>
+        <Badge color="primary">Gender: {char.gender}</Badge>
+        <Badge color="secondary">Height: {char.height}cm</Badge>
+        <Badge color="info">Weight: {char.weight}kg</Badge>
       </CardFooter>
     </Card>
   )
