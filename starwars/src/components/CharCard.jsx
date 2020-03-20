@@ -13,14 +13,14 @@ function CharCard({char}) {
 
   return (
     <Card>
-      <CardHeader tag="h3">{char.name} <Emoji name='ufo' /></CardHeader>
+      <CardHeader tag="h3">{char.name}</CardHeader>
       <CardBody>
-        About this person
+        About this person <Emoji name='ufo' />
       </CardBody>
       <CardFooter>
         <Badge color="primary">Gender: {char.gender}</Badge>
-        <Badge color="secondary">Height: {char.height}cm</Badge>
-        <Badge color="info">Weight: {char.weight}kg</Badge>
+        <Badge color="secondary">Height: {char.height ? char.height + ' cm' : 'n/a'}</Badge>
+        <Badge color="info">Mass: {char.mass ? char.mass + ' kg' : 'n/a'}</Badge>
       </CardFooter>
     </Card>
   )

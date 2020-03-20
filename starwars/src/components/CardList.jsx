@@ -130,12 +130,14 @@ function CardList() {
       <Container className="themed-container" fluid={true}>
         <InputGroup>
           <Input name="search" />
-          <InputGroupAddon addonType="append"><Button onClick={handleSearch}>Search</Button></InputGroupAddon>
+          <InputGroupAddon addonType="append">
+            <Button onClick={handleSearch}>Search</Button>
+            <ButtonGroup>
+              <Button onClick={() => (page > 1 ? setPage(Number(page - 1)) : null ) }>Previous</Button>
+              <Button onClick={() => (page < (count / 10) ? setPage(Number(page + 1)) : null ) }>Next</Button>
+          </ButtonGroup>            
+          </InputGroupAddon>
         </InputGroup>
-        <ButtonGroup>
-          <Button onClick={() => (page > 1 ? setPage(Number(page - 1)) : null ) }>Previous</Button>
-          <Button onClick={() => (page < (count / 10) ? setPage(Number(page + 1)) : null ) }>Next</Button>
-        </ButtonGroup>
         <Row xs='1' sm='1' md='2' lg='2' xl='5'>
           {chars.map((item, idx) => {
             return (
