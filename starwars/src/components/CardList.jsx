@@ -73,9 +73,6 @@ const data = [
   }
 ];
 
-
-
-
 function CardList() {
 
   const [chars, setChars] = useState([])
@@ -87,7 +84,6 @@ function CardList() {
   
   }
   
-
   useEffect(() => {
 
     axios
@@ -102,19 +98,39 @@ function CardList() {
       // }
       setChars(resp.data.results)
       setCount(resp.data.count)
+      console.log(`request done with query: ${query}, page: ${page}`)
     })
     .catch(err => {
       console.log("There was an error", err)
     });
     
-  }, [page, query]);
+  }, [page]);
+
+
+  function handleSearch() {
+    const qryStr = document.getElementsByName("search")[0].value;
+
+    axios
+    .get(`https://swapi.co/api/people/?search=${qryStr}`)
+    .then(resp => {
+      setQuery(qryStr)
+      setPage(1)
+      setChars(resp.data.results)
+      setCount(resp.data.count)
+      console.log(`HELLO request done with query: ${query}, page: ${page}`)
+    })
+    .catch(err => {
+      console.log("There was an error", err)
+    });
+
+  }
 
   return (
     <section className="char-list">
       <Container className="themed-container" fluid={true}>
         <InputGroup>
           <Input name="search" />
-          <InputGroupAddon addonType="append"><Button onClick={() => setQuery(document.getElementsByName("search")[0].value)}>Search</Button></InputGroupAddon>
+          <InputGroupAddon addonType="append"><Button onClick={handleSearch}>Search</Button></InputGroupAddon>
         </InputGroup>
         <ButtonGroup>
           <Button onClick={() => (page > 1 ? setPage(Number(page - 1)) : null ) }>Previous</Button>
